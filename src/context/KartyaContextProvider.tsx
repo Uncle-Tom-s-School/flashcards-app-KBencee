@@ -3,43 +3,48 @@ import type { KartyaType } from "../types/Kartya";
 import { getCards } from "../services/KartyaAPI";
 
 type KartyaContextType = {
-    cards: KartyaType[],
-    currentCard: KartyaType | undefined,
-    changeCard: (nextCard: KartyaType) => void
-}
+  cards: KartyaType[];
+  currentCard: KartyaType | undefined;
+  changeCard: (nextCard: KartyaType) => void;
+  currentIndex: number; 
+  totalCards: number;
+};
 
 const KartyaContext = createContext<KartyaContextType | undefined>(undefined);
 
-const KartyaContextProvider = ({children}:{children: ReactNode}) => {
-const [cards, setCards] = useState<KartyaType[]>([]);
-const [currentCard, setCurrentCard] = useState<KartyaType | undefined>(undefined);
+const KartyaContextProvider = ({ children }: { children: ReactNode }) => {
+  const [cards, setCards] = useState<KartyaType[]>([]);
+  const [currentCard, setCurrentCard] = useState<KartyaType | undefined>(undefined);
+  const [currentIndex, setCurrentIndex] = useState(0); 
 
-useEffect(() => {
-    getCards().then(res => {
-        setCards(res)
-        if (res.length > 0) {
-            setCurrentCard(res[0]);
-        }
-    })
-}, []);
+  useEffect(() => {
+    getCards().then((res) => {
+      setCards(res);
+      if (res.length > 0) {
+        setCurrentCard(res[0]);
+      }
+    });
+  }, []);
 
-const changeCard = (nextCard: KartyaType) => {
+  const changeCard = (nextCard: KartyaType) => {
+    const nextIndex = cards.findIndex((card) => card === nextCard);
+    setCurrentIndex(nextIndex); 
     setCurrentCard(nextCard);
-}
+  };
 
   return (
-    <KartyaContext.Provider value={{changeCard,currentCard,cards}}>
-        {children}
+    <KartyaContext.Provider value={{changeCard,currentCard, cards, currentIndex, totalCards: cards.length,}}>
+      {children}
     </KartyaContext.Provider>
-  )
-}
+  );
+};
 
 export const useKartyaContext = () => {
-    const context =  useContext(KartyaContext);
-    if (!context) {
-        throw new Error("No KartyaContext found");
-    }
-    return context;
-}
+  const context = useContext(KartyaContext);
+  if (!context) {
+    throw new Error("No KartyaContext found");
+  }
+  return context;
+};
 
-export default KartyaContextProvider
+export default KartyaContextProvider;

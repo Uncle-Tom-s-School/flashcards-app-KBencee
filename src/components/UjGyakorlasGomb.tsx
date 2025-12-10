@@ -1,6 +1,8 @@
 const UjGyakorlasGomb = () => {
   return (
-    <div>UjGyakorlasGomb</div>
+    <div className="gomb">
+      Új gyakorlás indítása
+    </div>
   )
 }
 

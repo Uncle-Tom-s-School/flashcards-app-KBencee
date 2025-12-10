@@ -17,7 +17,6 @@ body{
   align-items: center;
   justify-content: center;
   display: flex;
-
 }
 
 .flip-card {
@@ -37,7 +36,7 @@ body{
   transform-style: preserve-3d;
 }
 
-.flip-card:hover .flip-card-inner {
+.flip-card-inner.flipped {
   transform: rotateY(180deg);
 }
 
@@ -47,11 +46,13 @@ body{
   height: 100%;
   -webkit-backface-visibility: hidden; 
   backface-visibility: hidden;
+  border-radius: 10px;
 }
 
 .flip-card-front {
   background-color: #66CB92;
   color: white;
+  padding: 80px;
 }
 
 .flip-card-back {
@@ -86,9 +87,31 @@ body{
 }
 
 .gombok{
-  margin-top: 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 0px;
   display: flex;
-  gap: 20px;
-  align-items: center;
+  flex-direction: column;
+  width: 20%;
+}
+
+.gomb{
+  background-color: white;
+  border: none;
+  padding: 20px 10px;
+  width: 70%;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
   justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 15px;
+}
+
+.PBar{
+  text-align: center;
+  color: white;
+  margin: 20px;
 }
