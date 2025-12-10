@@ -1,8 +1,8 @@
 const UjKartyaGomb = () => {
   return (
-    <div className="gomb">
+    <button className="gomb">
       Új kártyák hozzáadása
-    </div>
+    </button>
   )
 }
 

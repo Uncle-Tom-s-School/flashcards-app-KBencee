@@ -1,9 +1,13 @@
+import { useKartyaContext } from "../context/KartyaContextProvider";
+
 const UjGyakorlasGomb = () => {
+  const { restartPractice } = useKartyaContext();
+
   return (
-    <div className="gomb">
+    <button type="button" className="gomb" onClick={restartPractice}>
       Új gyakorlás indítása
-    </div>
-  )
-}
+    </button>
+  );
+};
 
 export default UjGyakorlasGomb
